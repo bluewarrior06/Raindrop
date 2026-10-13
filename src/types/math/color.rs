@@ -4,16 +4,16 @@ pub type RGBA8 = RGBA<u8>;
 /// Data type defined through T.
 #[derive(Debug, Default, Clone, Copy)]
 pub struct Red<T> {
-	pub r: T
+    pub r: T,
 }
 
 /// Contains color information in channels RGB.
 /// Data type defined through T.
 #[derive(Debug, Default, Clone, Copy)]
 pub struct RGB<T> {
-	pub r: T,
-	pub g: T,
-	pub b: T
+    pub r: T,
+    pub g: T,
+    pub b: T,
 }
 
 #[repr(C)]
@@ -21,8 +21,8 @@ pub struct RGB<T> {
 /// Data type defined through T.
 #[derive(Debug, Default, Clone, Copy)]
 pub struct RGBA<T> {
-	pub r: T,
-	pub g: T,
-	pub b: T,
-	pub a: T
+    pub r: T,
+    pub g: T,
+    pub b: T,
+    pub a: T,
 }
