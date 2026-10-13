@@ -21,7 +21,7 @@ impl Effect<RGBA8, GridLayer<RGBA8>> for BlockEffect {
 
         for x in 0..layer.get_size().x {
             for y in 0..layer.get_size().y {
-                let mut pos = Vec2Du::new(x, y);
+                let pos = Vec2Du::new(x, y);
                 let Ok(color) = layer.get(pos) else {
                     return Some(EffectError::ReachedLayerOutOfBounds);
                 };

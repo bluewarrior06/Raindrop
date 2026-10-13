@@ -1,10 +1,4 @@
-use crate::{
-    traits::mapper::MapperCopy,
-    types::{
-        math::vec::Vec2Du,
-        paint::effect::{Effect, GridEffect},
-    },
-};
+use crate::{traits::mapper::MapperCopy, types::math::vec::Vec2Du};
 
 /// Base type of any layer.
 /// T is the type the layer stores.

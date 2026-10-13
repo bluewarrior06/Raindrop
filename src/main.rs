@@ -1,20 +1,18 @@
 use std::io::BufWriter;
 
-use noise::{NoiseFn, Perlin, Simplex};
-use png::Encoder;
+use noise::{NoiseFn, Perlin};
 
 use crate::{
     traits::mapper::MapperCopy,
     types::{
         math::{
-            color::{RGBA, RGBA8},
+            color::RGBA8,
             vec::{Vec2D, Vec2Du},
         },
         paint::{
             effects::block_effect::BlockEffect,
             flattened::Flattened,
             flatteners::basic_flattener::BasicFlattener,
-            layer::GridBasedLayer,
             layers::grid_layer::GridLayer,
             output::Output,
             painter::{DrawablePainter, Painter},
