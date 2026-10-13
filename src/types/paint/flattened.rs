@@ -1,6 +1,5 @@
 use crate::{
-    traits::mapper::MapperCopy,
-    types::paint::{flattener::Flattener, image::Image, output::Output},
+    traits::mapper::MapperCopy, types::paint::{flattener::Flattener, image::{Image, RGBA8Image}, output::Output},
 };
 
 /// Used to "flatten" the images inside of an output onto a final image.
@@ -14,7 +13,7 @@ impl Flattened {
         self.flatteners.push(flattener);
     }
 
-    pub fn flatten(&mut self, output: &Output) -> Image {
+    pub fn flatten(&mut self, output: &Output) -> RGBA8Image {
         let albedo = output.get_albedo();
         let mut image = Image::default();
         image.resize(albedo.get_size());

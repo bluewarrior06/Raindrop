@@ -1,30 +1,21 @@
-use std::io::BufWriter;
-
 use noise::{NoiseFn, Perlin};
 
 use crate::{
-    traits::mapper::MapperCopy,
-    types::{
+    traits::mapper::MapperCopy, types::{
         math::{
             color::RGBA8,
             vec::{Vec2D, Vec2Du},
-        },
-        paint::{
-            effects::block_effect::BlockEffect,
-            flattened::Flattened,
-            flatteners::basic_flattener::BasicFlattener,
-            layers::grid_layer::GridLayer,
-            output::Output,
-            painter::{DrawablePainter, Painter},
+        }, paint::{
+            effects::{block_effect::BlockEffect, gradient_effect::GradientEffect}, flattened::Flattened, flatteners::{basic_flattener::BasicFlattener, light_flattener::LightFlattener}, layers::grid_layer::GridLayer, output::Output, painter::{DrawablePainter, Painter},
         },
     },
 };
 
-use std::fs::File;
-use std::path::Path;
-
 pub mod traits;
 pub mod types;
+
+#[cfg(test)]
+pub mod tests;
 
 /// Splash is an editor for generating images for games.
 /// Images are created through a collection of stages linearly:
@@ -34,7 +25,9 @@ pub mod types;
 /// 3. Save the resulting image onto the disk.
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let size = Vec2Du::new(48, 27);
+	let v = Vec::<f32>::new();
+
+	let size = Vec2Du::new(69, 39);
     let physical_size: u32 = 20;
     let image_size = Vec2Du::new(size.x * physical_size as u32, size.y * physical_size as u32);
 
@@ -44,8 +37,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut block_effect = BlockEffect::default();
     block_effect.physical_size = physical_size;
 
+	let mut gradient_effect = GradientEffect{};
+
     let mut painter = Painter::<RGBA8, GridLayer<RGBA8>>::default();
     painter.push_effect(Box::new(block_effect));
+    painter.push_effect(Box::new(gradient_effect));
 
     let layer = painter.get_layer_mut();
     layer.resize(size);
@@ -54,9 +50,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     for x in 0..size.x {
         for y in 0..size.y {
-            let value = noise_gen.get([x as f64 / 32.0, y as f64 / 32.0, 0.0]);
+            let value = noise_gen.get([x as f64 / 3.0, y as f64 / 3.0, 0.0]);
             let intensity: u8 = (value * u8::MAX as f64) as u8;
-            println!("{intensity}");
 
             layer.set(
                 Vec2D::new(x, y),
@@ -74,32 +69,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let mut flattened = Flattened::default();
     flattened.add_flattener(Box::new(BasicFlattener));
+    flattened.add_flattener(Box::new(LightFlattener));
     let flattened_image = flattened.flatten(&output);
-
-    {
-        // For reading and opening files
-        let path = Path::new(r"image.png");
-        let file = File::create(path).unwrap();
-        let ref mut w = BufWriter::new(file);
-
-        let mut encoder = png::Encoder::new(w, image_size.x, image_size.y); // Width is 2 pixels and height is 1.
-        encoder.set_color(png::ColorType::Rgba);
-        encoder.set_depth(png::BitDepth::Eight);
-        encoder.set_source_gamma(png::ScaledFloat::from_scaled(45455)); // 1.0 / 2.2, scaled by 100000
-        encoder.set_source_gamma(png::ScaledFloat::new(1.0 / 2.2)); // 1.0 / 2.2, unscaled, but rounded
-        let source_chromaticities = png::SourceChromaticities::new(
-            // Using unscaled instantiation here
-            (0.31270, 0.32900),
-            (0.64000, 0.33000),
-            (0.30000, 0.60000),
-            (0.15000, 0.06000),
-        );
-        encoder.set_source_chromaticities(source_chromaticities);
-        let mut writer = encoder.write_header().unwrap();
-
-        let data = flattened_image.to_bytes();
-        writer.write_image_data(&data).unwrap(); // Save
-    }
 
     return Ok(());
 }

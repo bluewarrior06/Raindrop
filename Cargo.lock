@@ -3,6 +3,16 @@
 version = 4
 
 [[package]]
+name = "Raindrop"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "iced",
+ "noise",
+ "png",
+]
+
+[[package]]
 name = "ab_glyph"
 version = "0.2.32"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2788,16 +2798,6 @@ dependencies = [
  "web-sys",
  "windows-sys 0.61.2",
  "x11rb",
-]
-
-[[package]]
-name = "source"
-version = "0.1.0"
-dependencies = [
- "bytemuck",
- "iced",
- "noise",
- "png",
 ]
 
 [[package]]
