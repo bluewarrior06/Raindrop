@@ -1,0 +1,10 @@
+[package]
+name = "source"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+iced = {version = "0.14.0"}
+bytemuck = {version = "1.25.2"}
+png = {version = "0.18.1"}
+noise = {version = "0.9.0"}
