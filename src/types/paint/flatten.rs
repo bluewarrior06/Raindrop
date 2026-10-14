@@ -1,8 +1,9 @@
 use crate::{
-    traits::mapper::MapperCopy, types::{data::image::{Image, RGBA8Image}, paint::{
-        flattener::Flattener,
-        output::Output,
-    }},
+    traits::mapper::MapperCopy,
+    types::{
+        data::image::{Image, RGBA8Image},
+        paint::{flattener::Flattener, output::Output},
+    },
 };
 
 /// Used to "flatten" the images inside of an output onto a final image.

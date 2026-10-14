@@ -1,6 +1,5 @@
 /// Implementee is capable of mapping Ele to a position at Map.
-pub trait MapperCopy<Map: Clone + Copy, Ele, Err>
-{
+pub trait MapperCopy<Map: Clone + Copy, Ele, Err> {
     /// If the position is in bounds.
     /// If the position is out of bounds, this will return why.
     fn is_in_bounds(&self, pos: Map) -> Option<Err>;

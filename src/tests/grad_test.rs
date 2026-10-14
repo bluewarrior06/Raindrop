@@ -1,8 +1,13 @@
 use std::path::Path;
 
 use crate::{
-    traits::mapper::MapperCopy, types::{
-        data::{grad::{DeltaGrad, DeltaGrad1Df, DeltaGrad1DfEntry}, image::RGBA8Image}, math::{color::RGBA8, vec::Vec2Du},
+    traits::mapper::MapperCopy,
+    types::{
+        data::{
+            grad::{DeltaGrad, DeltaGrad1Df, DeltaGrad1DfEntry},
+            image::RGBA8Image,
+        },
+        math::{color::RGBA8, vec::Vec2Du},
     },
 };
 
