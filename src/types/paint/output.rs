@@ -2,7 +2,7 @@ use crate::{
     traits::mapper::MapperCopy,
     types::{
         math::vec::Vec2Du,
-        paint::image::{ByteImage, Image, RGBA8Image},
+        paint::image::{ByteImage, RGBA8Image},
     },
 };
 

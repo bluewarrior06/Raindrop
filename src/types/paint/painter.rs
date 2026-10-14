@@ -52,17 +52,17 @@ where
 
 #[derive(Default)]
 pub struct PainterSet {
-	painters: Vec<Box<dyn DrawablePainter>>
+    painters: Vec<Box<dyn DrawablePainter>>,
 }
 
 impl PainterSet {
-	pub fn push_painter(&mut self, painter: Box<dyn DrawablePainter>) {
-		self.painters.push(painter);
-	}
+    pub fn push_painter(&mut self, painter: Box<dyn DrawablePainter>) {
+        self.painters.push(painter);
+    }
 
-	pub fn draw_onto_output(&self, output: &mut Output) {
-		for painter in self.painters.iter() {
-			painter.draw_onto_output(output);
-		}
-	}
+    pub fn draw_onto_output(&self, output: &mut Output) {
+        for painter in self.painters.iter() {
+            painter.draw_onto_output(output);
+        }
+    }
 }

@@ -57,7 +57,7 @@ impl Image<RGBA8> {
         let file_result = File::create(path);
         let file = match file_result {
             Ok(file) => file,
-            Err(err) => return false,
+            Err(_err) => return false,
         };
 
         let ref mut w = BufWriter::new(file);

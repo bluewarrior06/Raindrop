@@ -1,5 +1,5 @@
 use crate::types::{
-    math::color::{RGB, RGBA, RGBA8},
+    math::color::RGBA8,
     paint::{
         effect::{Effect, EffectError},
         layers::grid_layer::GridLayer,
@@ -10,7 +10,7 @@ use crate::types::{
 pub struct GradientEffect {}
 
 impl Effect<RGBA8, GridLayer<RGBA8>> for GradientEffect {
-    fn draw(&self, layer: &GridLayer<RGBA8>, output: &mut Output) -> Option<EffectError> {
+    fn draw(&self, _layer: &GridLayer<RGBA8>, _output: &mut Output) -> Option<EffectError> {
         None
     }
 }

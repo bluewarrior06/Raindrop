@@ -1,4 +1,4 @@
-use crate::{traits::interpolate::Interpolate, types::math::color::RGBA8};
+use crate::traits::interpolate::Interpolate;
 
 /// An individual entry inside of a gradient.
 pub trait DeltaGradEntry<T, M>: Clone + Copy
@@ -142,7 +142,14 @@ where
         }
     }
 
-    fn find_pair(&self, at: f32) -> (f32, Option<&DeltaGrad1DfEntry<T>>, Option<&DeltaGrad1DfEntry<T>>) {
+    fn find_pair(
+        &self,
+        at: f32,
+    ) -> (
+        f32,
+        Option<&DeltaGrad1DfEntry<T>>,
+        Option<&DeltaGrad1DfEntry<T>>,
+    ) {
         if self.entries.len() == 0 {
             return (0.0, None, None);
         }

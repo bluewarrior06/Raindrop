@@ -1,7 +1,7 @@
 use crate::{
     traits::mapper::MapperCopy,
     types::{
-        math::{color::RGBA, vec::Vec2Du},
+        math::vec::Vec2Du,
         paint::{flattener::Flattener, image::RGBA8Image, output::Output},
     },
 };
