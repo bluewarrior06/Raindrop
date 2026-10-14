@@ -1,7 +1,5 @@
 /// Implementee is capable of mapping Ele to a position at Map.
-pub trait MapperCopy<Map, Ele, Err>
-where
-    Map: Clone + Copy,
+pub trait MapperCopy<Map: Clone + Copy, Ele, Err>
 {
     /// If the position is in bounds.
     /// If the position is out of bounds, this will return why.

@@ -21,5 +21,4 @@ impl<T, P: AssetProcessor<T>> AssetManager<T, P> {
 	pub fn get_processor_mut(&mut self) -> &mut P {
 		&mut self.processor
 	}
-	
 }

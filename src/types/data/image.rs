@@ -5,16 +5,14 @@ use crate::{
     types::math::{color::RGBA8, vec::Vec2Du},
 };
 
+
 pub type RGBA8Image = Image<RGBA8>;
 pub type IndexImage = Image<u32>;
 pub type ByteImage = Image<u8>;
 
-pub struct Image<T>
-where
-    T: Default + Clone + Copy,
+pub struct Image<T: Default + Clone + Copy>
 {
     size: Vec2Du,
-
     data: Vec<T>,
 }
 
@@ -24,9 +22,7 @@ pub enum ImageError {
     IndexOutOfBounds,
 }
 
-impl<T> Default for Image<T>
-where
-    T: Default + Clone + Copy,
+impl<T: Default + Clone + Copy> Default for Image<T>
 {
     fn default() -> Self {
         Self {
@@ -36,9 +32,7 @@ where
     }
 }
 
-impl<T> Image<T>
-where
-    T: Default + Clone + Copy,
+impl<T: Default + Clone + Copy> Image<T>
 {
     pub fn new(size: Vec2Du) -> Result<Image<T>, ImageError> {
         let mut image = Image::default();
@@ -99,9 +93,7 @@ impl Image<RGBA8> {
     }
 }
 
-impl<T> MapperCopy<Vec2Du, T, ImageError> for Image<T>
-where
-    T: Default + Clone + Copy,
+impl<T: Default + Clone + Copy> MapperCopy<Vec2Du, T, ImageError> for Image<T>
 {
     fn is_in_bounds(&self, pos: Vec2Du) -> Option<ImageError> {
         if pos.x >= self.size.x || pos.y >= self.size.y {
