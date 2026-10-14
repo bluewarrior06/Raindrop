@@ -1,10 +1,13 @@
 use std::marker::PhantomData;
 
-use crate::types::paint::{effect::Effect, layer::BaseLayer, output::Output};
+use crate::types::paint::{
+    effect::Effect, layer::BaseLayer, layers::grid_layer::GridLayer, output::Output,
+};
 
-pub type GridPainter<T, L> = Painter<T, L>;
+pub type GridPainter<T> = Painter<T, GridLayer<T>>;
 
 /// Paints onto an Output using a layer and effects.
+/// The Layer informs the Effects how to draw onto an Output.
 #[derive(Default)]
 pub struct Painter<T, L>
 where
@@ -45,4 +48,21 @@ where
     pub fn push_effect(&mut self, effect: Box<dyn Effect<T, L>>) {
         self.effects.push(effect);
     }
+}
+
+#[derive(Default)]
+pub struct PainterSet {
+	painters: Vec<Box<dyn DrawablePainter>>
+}
+
+impl PainterSet {
+	pub fn push_painter(&mut self, painter: Box<dyn DrawablePainter>) {
+		self.painters.push(painter);
+	}
+
+	pub fn draw_onto_output(&self, output: &mut Output) {
+		for painter in self.painters.iter() {
+			painter.draw_onto_output(output);
+		}
+	}
 }

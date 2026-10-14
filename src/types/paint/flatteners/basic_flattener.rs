@@ -1,6 +1,12 @@
 use crate::{
-    traits::mapper::MapperCopy, types::{
-        math::vec::Vec2Du, paint::{flattener::Flattener, image::{Image, RGBA8Image}, output::Output},
+    traits::mapper::MapperCopy,
+    types::{
+        math::vec::Vec2Du,
+        paint::{
+            flattener::Flattener,
+            image::{Image, RGBA8Image},
+            output::Output,
+        },
     },
 };
 

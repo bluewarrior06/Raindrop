@@ -10,7 +10,9 @@ pub type IndexImage = Image<u32>;
 pub type ByteImage = Image<u8>;
 
 pub struct Image<T>
-where T: Default + Clone + Copy {
+where
+    T: Default + Clone + Copy,
+{
     size: Vec2Du,
 
     data: Vec<T>,
@@ -23,7 +25,9 @@ pub enum ImageError {
 }
 
 impl<T> Default for Image<T>
-where T: Default + Clone + Copy  {
+where
+    T: Default + Clone + Copy,
+{
     fn default() -> Self {
         Self {
             size: Vec2Du::new(1, 1),
@@ -33,7 +37,9 @@ where T: Default + Clone + Copy  {
 }
 
 impl<T> Image<T>
-where T: Default + Clone + Copy  {
+where
+    T: Default + Clone + Copy,
+{
     pub fn new(size: Vec2Du) -> Result<Image<T>, ImageError> {
         let mut image = Image::default();
 
@@ -46,14 +52,14 @@ where T: Default + Clone + Copy  {
 }
 
 impl Image<RGBA8> {
-	/// This code needs a rewrite since the implementation is copied straight from the png cargo example, (I don't know what it does!)
-	pub fn save_as_png(&self, path: &Path) -> bool {
+    /// This code needs a rewrite since the implementation is copied straight from the png cargo example, (I don't know what it does!)
+    pub fn save_as_png(&self, path: &Path) -> bool {
         let file_result = File::create(path);
-		let file = match file_result {
-			Ok(file) => file,
-			Err(err) => return false
-		};
-		
+        let file = match file_result {
+            Ok(file) => file,
+            Err(err) => return false,
+        };
+
         let ref mut w = BufWriter::new(file);
 
         let mut encoder = png::Encoder::new(w, self.size.x, self.size.y); // Width is 2 pixels and height is 1.
@@ -73,10 +79,10 @@ impl Image<RGBA8> {
 
         let data = self.to_bytes();
         writer.write_image_data(&data).unwrap();
-		
-		return true;
-	}
-	pub fn to_bytes(&self) -> Vec<u8> {
+
+        return true;
+    }
+    pub fn to_bytes(&self) -> Vec<u8> {
         let area = (self.size.x * self.size.y) as usize;
 
         let mut bytes = Vec::with_capacity(area);
@@ -94,7 +100,9 @@ impl Image<RGBA8> {
 }
 
 impl<T> MapperCopy<Vec2Du, T, ImageError> for Image<T>
-where T: Default + Clone + Copy  {
+where
+    T: Default + Clone + Copy,
+{
     fn is_in_bounds(&self, pos: Vec2Du) -> Option<ImageError> {
         if pos.x >= self.size.x || pos.y >= self.size.y {
             Some(ImageError::IndexOutOfBounds)

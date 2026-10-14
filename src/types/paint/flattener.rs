@@ -1,4 +1,7 @@
-use crate::types::paint::{image::{Image, RGBA8Image}, output::Output};
+use crate::types::paint::{
+    image::{Image, RGBA8Image},
+    output::Output,
+};
 
 /// Flattens the results of an output onto a final image.
 pub trait Flattener {

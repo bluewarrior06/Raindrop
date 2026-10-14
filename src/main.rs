@@ -1,16 +1,26 @@
+use iced::Theme;
 use noise::{NoiseFn, Perlin};
 
 use crate::{
-    traits::mapper::MapperCopy, types::{
+    editor::editor_state::EditorState,
+    traits::mapper::MapperCopy,
+    types::{
         math::{
             color::RGBA8,
             vec::{Vec2D, Vec2Du},
-        }, paint::{
-            effects::{block_effect::BlockEffect, gradient_effect::GradientEffect}, flattened::Flattened, flatteners::{basic_flattener::BasicFlattener, light_flattener::LightFlattener}, layers::grid_layer::GridLayer, output::Output, painter::{DrawablePainter, Painter},
+        },
+        paint::{
+            effects::{block_effect::BlockEffect, gradient_effect::GradientEffect},
+            flattened::Flattened,
+            flatteners::{basic_flattener::BasicFlattener, light_flattener::LightFlattener},
+            layers::grid_layer::GridLayer,
+            output::Output,
+            painter::{DrawablePainter, Painter},
         },
     },
 };
 
+pub mod editor;
 pub mod traits;
 pub mod types;
 
@@ -23,54 +33,8 @@ pub mod tests;
 /// There are two different types of layers: Tiled layers and Prop layers. Tiled layers store information in a fixed grid; Prop layers store information that isn't locked onto a grid.
 /// 2. Feed these layers into effects to draw onto an image.
 /// 3. Save the resulting image onto the disk.
-
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-	let v = Vec::<f32>::new();
-
-	let size = Vec2Du::new(69, 39);
-    let physical_size: u32 = 20;
-    let image_size = Vec2Du::new(size.x * physical_size as u32, size.y * physical_size as u32);
-
-    let mut output = Output::default();
-    output.resize(image_size);
-
-    let mut block_effect = BlockEffect::default();
-    block_effect.physical_size = physical_size;
-
-	let mut gradient_effect = GradientEffect{};
-
-    let mut painter = Painter::<RGBA8, GridLayer<RGBA8>>::default();
-    painter.push_effect(Box::new(block_effect));
-    painter.push_effect(Box::new(gradient_effect));
-
-    let layer = painter.get_layer_mut();
-    layer.resize(size);
-
-    let noise_gen = Perlin::new(1);
-
-    for x in 0..size.x {
-        for y in 0..size.y {
-            let value = noise_gen.get([x as f64 / 3.0, y as f64 / 3.0, 0.0]);
-            let intensity: u8 = (value * u8::MAX as f64) as u8;
-
-            layer.set(
-                Vec2D::new(x, y),
-                RGBA8 {
-                    r: intensity,
-                    g: intensity,
-                    b: intensity,
-                    a: intensity,
-                },
-            );
-        }
-    }
-
-    painter.draw_onto_output(&mut output);
-
-    let mut flattened = Flattened::default();
-    flattened.add_flattener(Box::new(BasicFlattener));
-    flattened.add_flattener(Box::new(LightFlattener));
-    let flattened_image = flattened.flatten(&output);
-
-    return Ok(());
+pub fn main() -> iced::Result {
+	return iced::application(EditorState::boot, EditorState::update, EditorState::view)
+        .theme(Theme::KanagawaDragon)
+        .run();
 }

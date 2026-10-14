@@ -1,3 +1,5 @@
+/// Runs an interpolation with another Self using time T.
 pub trait Interpolate<T> {
-	fn lerp(&self, other: &Self, time: T) -> Self;
+    /// Linear interpolation.
+    fn lerp(&self, other: &Self, time: T) -> Self;
 }
