@@ -1,8 +1,7 @@
 pub mod effect;
-pub mod flattened;
+pub mod flatten;
 pub mod flattener;
 pub mod grid_types;
-pub mod image;
 pub mod layer;
 pub mod output;
 pub mod painter;

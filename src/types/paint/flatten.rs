@@ -1,19 +1,17 @@
 use crate::{
-    traits::mapper::MapperCopy,
-    types::paint::{
+    traits::mapper::MapperCopy, types::{data::image::{Image, RGBA8Image}, paint::{
         flattener::Flattener,
-        image::{Image, RGBA8Image},
         output::Output,
-    },
+    }},
 };
 
 /// Used to "flatten" the images inside of an output onto a final image.
 #[derive(Default)]
-pub struct Flattened {
+pub struct Flatten {
     flatteners: Vec<Box<dyn Flattener>>,
 }
 
-impl Flattened {
+impl Flatten {
     pub fn add_flattener(&mut self, flattener: Box<dyn Flattener>) {
         self.flatteners.push(flattener);
     }
