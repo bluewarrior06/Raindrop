@@ -11,8 +11,7 @@ use crate::{
 };
 
 #[derive(Default)]
-pub struct BlockEffect {
-}
+pub struct BlockEffect {}
 
 impl Effect<RGBA8, GridLayer<RGBA8>> for BlockEffect {
     fn draw(&self, layer: &GridLayer<RGBA8>, output: &mut Output) -> Option<EffectError> {

@@ -1,8 +1,11 @@
 #[cfg(test)]
 pub fn test_grid_painter() {
     use crate::types::{
-        math::{color::RGBA8, vec::Vec2Du}, paint::{
-            effects::block_effect::BlockEffect, output::Output, painter::{DrawablePainter, GridPainter},
+        math::{color::RGBA8, vec::Vec2Du},
+        paint::{
+            effects::block_effect::BlockEffect,
+            output::Output,
+            painter::{DrawablePainter, GridPainter},
         },
     };
 
@@ -14,7 +17,7 @@ pub fn test_grid_painter() {
     output.resize(image_size);
 
     let mut painter: GridPainter<RGBA8> = GridPainter::default();
-	painter.get_layer_mut().set_physical_size(20);
+    painter.get_layer_mut().set_physical_size(20);
 
     let mut effect = BlockEffect::default();
 

@@ -32,7 +32,7 @@ pub trait PropBasedError<T>: BaseLayer<T>
 where
     T: Clone + Copy,
 {
-	fn has_at(&self, at: usize) -> bool;
+    fn has_at(&self, at: usize) -> bool;
     fn push(&mut self, data: T);
     fn pop(&mut self) -> Option<PropLayerError>;
     fn push_at(&mut self, data: T, index: usize) -> Option<PropLayerError>;

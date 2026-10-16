@@ -1,4 +1,7 @@
-use std::{path::{Path, PathBuf}, str::FromStr};
+use std::{
+    path::{Path, PathBuf},
+    str::FromStr,
+};
 
 use crate::{
     traits::mapper::MapperCopy,

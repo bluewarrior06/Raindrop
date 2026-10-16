@@ -1,4 +1,8 @@
-use std::{fs::File, io::BufWriter, path::{Path, PathBuf}};
+use std::{
+    fs::File,
+    io::BufWriter,
+    path::{Path, PathBuf},
+};
 
 use crate::{
     traits::mapper::MapperCopy,

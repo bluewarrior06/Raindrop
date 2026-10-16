@@ -14,8 +14,9 @@ pub mod tests;
 /// 2. Feed these layers into effects to draw onto an image.
 /// 3. Save the resulting image onto the disk.
 pub fn main() -> iced::Result {
-	iced::application(Editor::boot, Editor::update, Editor::view)
-		.theme(iced::Theme::KanagawaWave)
-		.title("Raindrop").antialiasing(true)
-		.run()
+    iced::application(Editor::boot, Editor::update, Editor::view)
+        .theme(iced::Theme::KanagawaWave)
+        .title("Raindrop")
+        .antialiasing(true)
+        .run()
 }

@@ -16,8 +16,8 @@ pub trait Effect<T: Clone + Copy, L: BaseLayer<T>> {
 }
 
 pub enum EffectType<T: Clone + Copy, L: BaseLayer<T>> {
-	Grid(Box<dyn GridEffect<T, L>>),
-	Prop(Box<dyn PropEffect<T, L>>)
+    Grid(Box<dyn GridEffect<T, L>>),
+    Prop(Box<dyn PropEffect<T, L>>),
 }
 
 //
