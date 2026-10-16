@@ -1,6 +1,4 @@
-use iced::Theme;
-
-use crate::editor::editor_state::EditorState;
+use crate::editor::editor::Editor;
 
 pub mod editor;
 pub mod traits;
@@ -16,7 +14,8 @@ pub mod tests;
 /// 2. Feed these layers into effects to draw onto an image.
 /// 3. Save the resulting image onto the disk.
 pub fn main() -> iced::Result {
-    return iced::application(EditorState::boot, EditorState::update, EditorState::view)
-        .theme(Theme::KanagawaDragon)
-        .run();
+	iced::application(Editor::boot, Editor::update, Editor::view)
+		.theme(iced::Theme::KanagawaWave)
+		.title("Raindrop").antialiasing(true)
+		.run()
 }

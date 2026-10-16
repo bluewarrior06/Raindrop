@@ -1,4 +1,4 @@
-use std::path::Path;
+use std::{path::{Path, PathBuf}, str::FromStr};
 
 use crate::{
     traits::mapper::MapperCopy,
@@ -32,7 +32,7 @@ pub fn test_grad_1d_rgb() {
         }
     }
 
-    image.save_as_png(Path::new("image.png"));
+    image.save_as_png(&PathBuf::from_str("image.png").unwrap());
 }
 
 #[test]
@@ -56,5 +56,5 @@ pub fn test_grad_1d_alpha() {
         }
     }
 
-    image.save_as_png(Path::new("image.png"));
+    image.save_as_png(&PathBuf::from_str("image.png").unwrap());
 }

@@ -7,6 +7,7 @@ use crate::{
     },
 };
 
+#[derive(Default)]
 pub struct LightFlattener;
 
 impl Flattener for LightFlattener {

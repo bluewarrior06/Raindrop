@@ -7,6 +7,7 @@ use crate::{
     },
 };
 
+#[derive(Default)]
 pub struct BasicFlattener;
 
 impl Flattener for BasicFlattener {

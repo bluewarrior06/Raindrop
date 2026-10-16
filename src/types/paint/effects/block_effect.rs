@@ -12,7 +12,6 @@ use crate::{
 
 #[derive(Default)]
 pub struct BlockEffect {
-    pub physical_size: u32,
 }
 
 impl Effect<RGBA8, GridLayer<RGBA8>> for BlockEffect {
@@ -26,11 +25,11 @@ impl Effect<RGBA8, GridLayer<RGBA8>> for BlockEffect {
                     return Some(EffectError::ReachedLayerOutOfBounds);
                 };
 
-                for px in 0..self.physical_size {
-                    for py in 0..self.physical_size {
+                for px in 0..layer.get_physical_size() {
+                    for py in 0..layer.get_physical_size() {
                         let ppos = Vec2Du::new(
-                            pos.x * self.physical_size + px as u32,
-                            pos.y * self.physical_size + py as u32,
+                            pos.x * layer.get_physical_size() + px,
+                            pos.y * layer.get_physical_size() + py,
                         );
                         let output_err = albedo.set(ppos, color);
 

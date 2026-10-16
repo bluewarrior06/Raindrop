@@ -1,4 +1,4 @@
-use std::{fs::File, io::BufWriter, path::Path};
+use std::{fs::File, io::BufWriter, path::{Path, PathBuf}};
 
 use crate::{
     traits::mapper::MapperCopy,
@@ -43,7 +43,7 @@ impl<T: Default + Clone + Copy> Image<T> {
 
 impl Image<RGBA8> {
     /// This code needs a rewrite since the implementation is copied straight from the png cargo example, (I don't know what it does!)
-    pub fn save_as_png(&self, path: &Path) -> bool {
+    pub fn save_as_png(&self, path: &PathBuf) -> bool {
         let file_result = File::create(path);
         let file = match file_result {
             Ok(file) => file,

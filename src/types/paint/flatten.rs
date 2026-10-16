@@ -13,9 +13,12 @@ pub struct Flatten {
 }
 
 impl Flatten {
-    pub fn add_flattener(&mut self, flattener: Box<dyn Flattener>) {
+    pub fn push_flattener(&mut self, flattener: Box<dyn Flattener>) {
         self.flatteners.push(flattener);
     }
+	pub fn pop_flattener(&mut self) {
+		
+	}
 
     pub fn flatten(&mut self, output: &Output) -> RGBA8Image {
         let albedo = output.get_albedo();
