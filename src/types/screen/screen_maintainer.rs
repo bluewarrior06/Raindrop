@@ -8,6 +8,8 @@ use crate::{
     types::screen::screen::Screen,
 };
 
+/// Holds multiple scenes that can be switched between, along with messaged.
+/// Scenes are not immediately changed, and are swapped when flush() is called.
 pub struct ScreenMaintainer<State, RootMsg, Msg, MsgErr, MutMsg, MutMsgErr> {
     scenes: HashMap<String, Box<dyn Screen<State, RootMsg, Msg, MsgErr, MutMsg, MutMsgErr>>>,
     cur_scene: String,
@@ -28,7 +30,7 @@ impl<State, RootMsg, Msg, MsgErr, MutMsg, MutMsgErr>
         self.scenes.remove(&name);
     }
 
-    pub fn flush(&mut self) {
+    pub fn swap_scene(&mut self) {
         self.cur_scene = self.nxt_scene.clone();
     }
 

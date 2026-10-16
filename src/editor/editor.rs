@@ -26,7 +26,7 @@ pub struct Editor {
         ScreenMutMsg,
         ScreenMutMsgErr,
     >,
-    interface: EditorState,
+    state: EditorState,
 }
 
 #[derive(Clone)]
@@ -72,7 +72,7 @@ impl Editor {
 
         editor.screens.change_scene("create_scene".to_string());
 
-        editor.screens.flush();
+        editor.screens.swap_scene();
 
         return editor;
     }
@@ -80,18 +80,18 @@ impl Editor {
     pub fn update(this: &mut Self, message: Message) {
         match message {
             Message::MessageInterface(msg) => {
-                this.screens.message(&this.interface, msg);
+                this.screens.message(&this.state, msg);
             }
             Message::MutMessageInterface(msg) => {
-                this.screens.message_mut(&mut this.interface, msg);
+                this.screens.message_mut(&mut this.state, msg);
             }
             Message::ChangeScene(scene) => {
                 this.screens
-                    .message_mut(&mut this.interface, ScreenMutMsg::Exited);
+                    .message_mut(&mut this.state, ScreenMutMsg::Exited);
                 this.screens.change_scene(scene);
-                this.screens.flush();
+                this.screens.swap_scene();
                 this.screens
-                    .message_mut(&mut this.interface, ScreenMutMsg::Entered);
+                    .message_mut(&mut this.state, ScreenMutMsg::Entered);
             }
             Message::Exit => {}
         }
