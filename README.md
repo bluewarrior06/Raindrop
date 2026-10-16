@@ -1,1 +1,1 @@
-![alt text](https://github.com/bluewarrior06/Raindrop/main/repo_assets/icon.png "Image")
+![alt text](https://github.com/bluewarrior06/Raindrop/blob/main/repo_assets/icon.png "Image")
