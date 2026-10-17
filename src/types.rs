@@ -5,3 +5,4 @@ pub mod paint;
 pub mod pod;
 pub mod screen;
 pub mod commands;
+pub mod associations;

@@ -18,12 +18,12 @@ impl Flatten {
     }
     pub fn pop_flattener(&mut self) {}
 
-    pub fn flatten(&mut self, output: &Output) -> RGBA8Image {
+    pub fn flatten(&self, output: &Output) -> RGBA8Image {
         let albedo = output.get_albedo();
         let mut image = Image::default();
         image.resize(albedo.get_size());
 
-        for flattener in self.flatteners.iter_mut() {
+        for flattener in self.flatteners.iter() {
             flattener.flatten(output, &mut image);
         }
 

@@ -1,6 +1,6 @@
 use crate::{traits::mapper::MapperCopy, types::{math::{color::RGBA8, vec::{Vec2Df, Vec2Du}}, paint::layers::{grid_layer::GridLayer, prop_layer::PropLayer}}};
 
-#[derive(Default, Clone, Copy)]
+#[derive(Debug, Default, Clone, Copy)]
 pub struct GridLayerData {
 	pub color: RGBA8
 }

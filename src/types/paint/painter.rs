@@ -17,6 +17,22 @@ pub struct Painter<T: Clone, L: BaseLayer<T>> {
     phantom: PhantomData<T>,
 }
 
+impl<T: Clone, L: BaseLayer<T>> Painter<T, L> {
+	pub fn set_effect(&mut self, effect: Box<dyn Effect<T, L>>) {
+		self.effect = Some(effect);
+	}
+	pub fn clear_effect(&mut self) {
+		self.effect = None;
+	}
+
+	pub fn get_layer(&self) -> &L {
+		&self.layer
+	}
+	pub fn get_layer_mut(&mut self) -> &mut L {
+		&mut self.layer
+	}
+}
+
 impl<T: Clone, L: BaseLayer<T>> Painter<T, L>  {
     fn draw_onto_output(&self, assets: &AssetCatalyst, output: &mut Output) {
         if let Some(effect) = &self.effect {
