@@ -1,16 +1,13 @@
 use crate::types::{
-    math::color::RGBA8,
-    paint::{
-        effect::{Effect, EffectError},
-        layers::grid_layer::GridLayer,
-        output::Output,
+    assets::asset_catalyst::AssetCatalyst, math::color::RGBA8, paint::{
+        effect::{Effect, EffectError}, layer::GridLayerData, layers::grid_layer::GridLayer, output::Output,
     },
 };
 
 pub struct GradientEffect {}
 
-impl Effect<RGBA8, GridLayer<RGBA8>> for GradientEffect {
-    fn draw(&self, _layer: &GridLayer<RGBA8>, _output: &mut Output) -> Option<EffectError> {
+impl Effect<GridLayerData, GridLayer> for GradientEffect {
+    fn draw(&self, _layer: &GridLayer, assets: &AssetCatalyst, _output: &mut Output) -> Option<EffectError> {
         None
     }
 }

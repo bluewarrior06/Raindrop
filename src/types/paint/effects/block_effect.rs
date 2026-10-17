@@ -1,11 +1,7 @@
 use crate::{
-    traits::mapper::MapperCopy,
-    types::{
-        math::{color::RGBA8, vec::Vec2Du},
-        paint::{
-            effect::{Effect, EffectError, GridEffect},
-            layers::grid_layer::GridLayer,
-            output::Output,
+    traits::mapper::MapperCopy, types::{
+        assets::asset_catalyst::AssetCatalyst, math::{color::RGBA8, vec::Vec2Du}, paint::{
+            effect::{Effect, EffectError, GridEffect}, layer::GridLayerData, layers::grid_layer::GridLayer, output::Output,
         },
     },
 };
@@ -13,8 +9,8 @@ use crate::{
 #[derive(Default)]
 pub struct BlockEffect {}
 
-impl Effect<RGBA8, GridLayer<RGBA8>> for BlockEffect {
-    fn draw(&self, layer: &GridLayer<RGBA8>, output: &mut Output) -> Option<EffectError> {
+impl Effect<GridLayerData, GridLayer> for BlockEffect {
+    fn draw(&self, layer: &GridLayer, assets: &AssetCatalyst, output: &mut Output) -> Option<EffectError> {
         let albedo = output.get_albedo_mut();
 
         for x in 0..layer.get_size().x {
@@ -30,7 +26,7 @@ impl Effect<RGBA8, GridLayer<RGBA8>> for BlockEffect {
                             pos.x * layer.get_physical_size() + px,
                             pos.y * layer.get_physical_size() + py,
                         );
-                        let output_err = albedo.set(ppos, color);
+                        let output_err = albedo.set(ppos, color.color);
 
                         if let Some(_) = output_err {
                             return Some(EffectError::ReachedOutputOutOfBounds);
@@ -43,4 +39,4 @@ impl Effect<RGBA8, GridLayer<RGBA8>> for BlockEffect {
     }
 }
 
-impl GridEffect<RGBA8, GridLayer<RGBA8>> for BlockEffect {}
+impl GridEffect for BlockEffect {}

@@ -1,17 +1,17 @@
-use crate::types::paint::layer::{BaseLayer, PropBasedError, PropLayerError};
+use crate::types::paint::layer::{BaseLayer, PropBasedLayer, PropLayerData, PropLayerError};
 
-pub struct PropLayer<T: Default + Clone + Copy> {
-    props: Vec<T>,
+pub struct PropLayer {
+    props: Vec<PropLayerData>,
 }
 
-impl<T: Default + Clone + Copy> BaseLayer<T> for PropLayer<T> {}
+impl BaseLayer<PropLayerData> for PropLayer {}
 
-impl<T: Default + Clone + Copy> PropBasedError<T> for PropLayer<T> {
+impl PropBasedLayer for PropLayer {
     fn has_at(&self, at: usize) -> bool {
         at < self.props.len()
     }
 
-    fn push(&mut self, data: T) {
+    fn push(&mut self, data: PropLayerData) {
         self.props.push(data);
     }
     fn pop(&mut self) -> Option<PropLayerError> {
@@ -23,7 +23,7 @@ impl<T: Default + Clone + Copy> PropBasedError<T> for PropLayer<T> {
         }
     }
 
-    fn push_at(&mut self, data: T, index: usize) -> Option<PropLayerError> {
+    fn push_at(&mut self, data: PropLayerData, index: usize) -> Option<PropLayerError> {
         if !self.has_at(index) {
             Some(PropLayerError::IndexOutOfBounds)
         } else {
@@ -40,7 +40,7 @@ impl<T: Default + Clone + Copy> PropBasedError<T> for PropLayer<T> {
         }
     }
 
-    fn get(&mut self, index: usize) -> Result<T, PropLayerError> {
+    fn get(&mut self, index: usize) -> Result<PropLayerData, PropLayerError> {
         match self.props.get(index) {
             Some(prop) => Ok(prop.clone()),
             None => Err(PropLayerError::IndexOutOfBounds),

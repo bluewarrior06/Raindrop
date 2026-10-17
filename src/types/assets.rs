@@ -3,5 +3,6 @@ pub mod asset_manager;
 pub mod asset_processor;
 pub mod asset_storage;
 pub mod asset_store;
+pub mod asset_catalyst;
 
 pub mod processors;

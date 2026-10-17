@@ -8,12 +8,8 @@ use iced::{
 
 use crate::{
     editor::{
-        editor::Message::MutMessageInterface,
-        editor_state::EditorState,
-        screens::{create_scene_screen::CreateSceneScreen, editor_screen::EditorScreen},
-    },
-    traits::messagable::{Messagable, MutMessagable},
-    types::screen::{screen::Screen, screen_maintainer::ScreenMaintainer},
+        editor_state::EditorState, screens::{create_scene_screen::CreateSceneScreen, editor_screen::EditorScreen},
+    }, traits::messagable::{Messagable, MutMessagable}, types::screen::{screen_maintainer::ScreenMaintainer},
 };
 
 #[derive(Default)]
@@ -26,6 +22,7 @@ pub struct Editor {
         ScreenMutMsg,
         ScreenMutMsgErr,
     >,
+	
     state: EditorState,
 }
 

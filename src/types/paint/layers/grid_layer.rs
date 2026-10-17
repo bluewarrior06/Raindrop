@@ -1,32 +1,27 @@
 use crate::{
-    traits::mapper::MapperCopy,
-    types::{
-        math::{color::RGBA8, vec::Vec2Du},
-        paint::layer::{BaseLayer, GridBasedLayer, GridLayerError},
+    traits::mapper::MapperCopy, types::{
+        math::{color::RGBA8, vec::Vec2Du}, paint::layer::{BaseLayer, GridBasedLayer, GridLayerData, GridLayerError},
     },
 };
 
-pub type IndexedGridLayer = GridLayer<usize>;
-pub type ColoredGridLayer = GridLayer<RGBA8>;
-
-pub struct GridLayer<T: Default + Clone + Copy> {
+pub struct GridLayer {
     size: Vec2Du,
     physical_size: u32,
-    data: Vec<T>,
+    data: Vec<GridLayerData>,
 }
 
-impl<T: Default + Clone + Copy> Default for GridLayer<T> {
+impl Default for GridLayer {
     fn default() -> Self {
         Self {
             size: Vec2Du::new(1, 1),
             physical_size: 1,
-            data: vec![T::default()],
+            data: vec![GridLayerData::default()],
         }
     }
 }
 
-impl<T: Default + Clone + Copy> BaseLayer<T> for GridLayer<T> {}
-impl<T: Default + Clone + Copy> MapperCopy<Vec2Du, T, GridLayerError> for GridLayer<T> {
+impl BaseLayer<GridLayerData> for GridLayer {}
+impl MapperCopy<Vec2Du, GridLayerData, GridLayerError> for GridLayer {
     fn is_in_bounds(&self, pos: Vec2Du) -> Option<GridLayerError> {
         if pos.x >= self.size.x || pos.y >= self.size.y {
             Some(GridLayerError::SizeIsZero)
@@ -42,7 +37,7 @@ impl<T: Default + Clone + Copy> MapperCopy<Vec2Du, T, GridLayerError> for GridLa
         }
     }
 
-    fn get(&self, pos: Vec2Du) -> Result<T, GridLayerError> {
+    fn get(&self, pos: Vec2Du) -> Result<GridLayerData, GridLayerError> {
         if let Some(err) = self.is_in_bounds(pos) {
             return Err(err);
         } else {
@@ -50,7 +45,7 @@ impl<T: Default + Clone + Copy> MapperCopy<Vec2Du, T, GridLayerError> for GridLa
             return Ok(self.data[index]);
         }
     }
-    fn set(&mut self, pos: Vec2Du, data: T) -> Option<GridLayerError> {
+    fn set(&mut self, pos: Vec2Du, data: GridLayerData) -> Option<GridLayerError> {
         if let Some(err) = self.is_in_bounds(pos) {
             return Some(err);
         } else {
@@ -64,7 +59,7 @@ impl<T: Default + Clone + Copy> MapperCopy<Vec2Du, T, GridLayerError> for GridLa
         return (pos.x + pos.y * self.size.x) as usize;
     }
     fn resize(&mut self, size: Vec2Du) -> Option<GridLayerError> {
-        if let Some(err) = GridLayer::<T>::is_size_valid(size) {
+        if let Some(err) = GridLayer::is_size_valid(size) {
             return Some(err);
         }
 
@@ -79,9 +74,9 @@ impl<T: Default + Clone + Copy> MapperCopy<Vec2Du, T, GridLayerError> for GridLa
     }
 }
 
-impl<T: Default + Clone + Copy> GridBasedLayer<T> for GridLayer<T> {}
+impl GridBasedLayer for GridLayer {}
 
-impl<T: Default + Clone + Copy> GridLayer<T> {
+impl GridLayer {
     pub fn get_physical_size(&self) -> u32 {
         self.physical_size
     }

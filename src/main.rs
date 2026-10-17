@@ -1,4 +1,4 @@
-use crate::editor::editor::Editor;
+use crate::{editor::editor::Editor};
 
 pub mod editor;
 pub mod traits;
